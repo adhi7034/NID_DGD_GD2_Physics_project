@@ -1,17 +1,18 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Magnet : MonoBehaviour
+public class SimpleMagnet : MonoBehaviour
 {
-    public Transform magnet;
-    public float pullStrength = 25f;
-    public float maxSpeed = 8f;
-    public float stopDistance = 0.25f;
+    private Transform magnetPoint;
+    public float pullSpeed = 6f;
+    public float attachDistance = 0.3f;
 
     Rigidbody rb;
+    bool attached = false;
 
-    void Awake()
+    void Start()
     {
+        magnetPoint = GameObject.FindWithTag("Magnet point").transform;
         rb = GetComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
@@ -19,21 +20,51 @@ public class Magnet : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!Input.GetKey(KeyCode.Q)) return;
-
-        Vector3 dir = magnet.position - rb.position;
-        float dist = dir.magnitude;
-
-        if (dist < stopDistance)
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            return;
+            if (!attached)
+                MoveTowardsMagnet();
         }
+        else
+        {
+            if (attached)
+                Detach();
+        }
+    }
 
-        Vector3 force = dir.normalized * pullStrength * Mathf.Clamp01(dist);
-        rb.AddForce(force, ForceMode.Acceleration);
+    void MoveTowardsMagnet()
+    {
+        Vector3 nextPos = Vector3.MoveTowards(
+            rb.position,
+            magnetPoint.position,
+            pullSpeed * Time.fixedDeltaTime
+        );
 
-        rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, maxSpeed);
+        rb.MovePosition(nextPos);
+
+        if (Vector3.Distance(rb.position, magnetPoint.position) <= attachDistance)
+            Attach();
+    }
+
+    void Attach()
+    {
+        attached = true;
+
+        rb.isKinematic = true;
+        rb.interpolation = RigidbodyInterpolation.None;
+
+        transform.parent = magnetPoint;
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+    }
+
+    void Detach()
+    {
+        attached = false;
+
+        transform.parent = null;
+
+        rb.isKinematic = false;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
     }
 }
