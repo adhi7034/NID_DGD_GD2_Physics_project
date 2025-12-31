@@ -2,20 +2,20 @@ using UnityEngine;
 
 public class NegativeScore : MonoBehaviour
 {
-    GameManager gameManager;
+    // GameManager gameManager;
 
-    void Start()
-    {
-        gameManager = FindObjectOfType<GameManager>();
-    }
+    // void Start()
+    // {
+    //     gameManager = FindObjectOfType<GameManager>();
+    // }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag("Ball")) return;
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (!other.CompareTag("WrongPlane")) return;
 
-        // Score FIRST
-        gameManager.ReduceScore();
+        
+    //     gameManager.ReduceScore();
 
 
-    }
+    // }
 }

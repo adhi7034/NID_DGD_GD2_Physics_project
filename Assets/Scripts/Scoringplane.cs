@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class Scoringplane : MonoBehaviour
 {
-    GameManager gameManager;
+    private GameManager gameManager;
+    private bool scoredThisPass = false;
+    private int ballsSpawned = 0; // Counter for balls spawned
 
-    void Start()
+    void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
     }
@@ -12,15 +14,25 @@ public class Scoringplane : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Ball")) return;
+        if (scoredThisPass) return;
 
-        // Score FIRST
+        scoredThisPass = true;
+
+        Debug.Log("Ball scored");
+
         gameManager.AddScore();
+        gameManager.SpawnBall(); // Will spawn only if no ball exists
 
-        // Destroy LAST
-        Destroy(other.gameObject);
+        ballsSpawned++; // Increment counter when a new ball is spawned
+        Debug.Log("Balls spawned so far: " + ballsSpawned);
+    }
 
-        gameManager.SpawnBall();
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.CompareTag("Ball")) return;
 
-
+        scoredThisPass = false;
+        gameManager.ReleaseBall(other.gameObject);
+        Debug.Log("Ball exited scoring plane → ready for next");
     }
 }

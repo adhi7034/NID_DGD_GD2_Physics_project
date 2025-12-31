@@ -58,9 +58,9 @@ Material:
     - _Wave_frequency: 0
     - _Wave_speed: 0
     m_Colors:
-    - _Base_color: {r: 0.041710988, g: 0.6313726, b: 0.6981132, a: 1}
+    - _Base_color: {r: 0.018511845, g: 0.38441014, b: 0.4528302, a: 1}
     - _Deep_color: {r: 0, g: 0, b: 0, a: 1}
-    - _Depth_color: {r: 0.39937094, g: 0.65882355, b: 1, a: 1}
+    - _Depth_color: {r: 0.16909923, g: 0.621765, b: 0.7169812, a: 1}
     - _Shallow_color: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

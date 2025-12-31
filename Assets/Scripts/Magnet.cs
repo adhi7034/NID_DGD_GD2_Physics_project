@@ -4,6 +4,9 @@ using UnityEngine;
 public class SimpleMagnet : MonoBehaviour
 {
     private Transform magnetPoint;
+
+    [Header("Magnet Settings")]
+    public float magnetRange = 5f;      // Maximum range of magnet
     public float pullSpeed = 6f;
     public float attachDistance = 0.3f;
 
@@ -13,6 +16,7 @@ public class SimpleMagnet : MonoBehaviour
     void Start()
     {
         magnetPoint = GameObject.FindWithTag("Magnet point").transform;
+
         rb = GetComponent<Rigidbody>();
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
@@ -20,7 +24,9 @@ public class SimpleMagnet : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        float distance = Vector3.Distance(rb.position, magnetPoint.position);
+
+        if (Input.GetKey(KeyCode.LeftShift) && distance <= magnetRange)
         {
             if (!attached)
                 MoveTowardsMagnet();
@@ -67,4 +73,32 @@ public class SimpleMagnet : MonoBehaviour
         rb.isKinematic = false;
         rb.interpolation = RigidbodyInterpolation.Interpolate;
     }
+
+    // Optional: visualize magnet range in Scene view
+    void OnDrawGizmosSelected()
+    {
+        if (magnetPoint == null) return;
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(magnetPoint.position, magnetRange);
+    }
+        void OnCollisionEnter(Collision collision)
+{
+    
+
+    if (collision.gameObject.name == "CollisionBox")
+    {
+        
+
+        if (attached)
+        {
+            
+            Detach();
+        }
+
+        this.enabled = false;
+        
+    }
+}
+
 }

@@ -3,22 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class Scene_manager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    // public float sceneChangeTime = 30f;   // Time before changing scene
+    // public int nextSceneIndex = 1;        // Scene to load
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Keypad0))
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-        }     
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
-        }   
-    }
+    // void Start()
+    // {
+    //     Invoke(nameof(ChangeScene), sceneChangeTime);
+    // }
+
+    // void ChangeScene()
+    // {
+    //     SceneManager.LoadScene(nextSceneIndex);
+    // }
 }

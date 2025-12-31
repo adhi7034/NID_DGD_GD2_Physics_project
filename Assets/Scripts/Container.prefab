@@ -86,7 +86,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6409055147615622124}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6ea69f858a1c0ff4baef5b18cc0dd952, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -108,9 +108,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6409055147615622124}
   serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 1
-  m_AngularDamping: 1
+  m_Mass: 200
+  m_LinearDamping: 0.17
+  m_AngularDamping: 0.1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -139,5 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca892b327893d554c9ba9312da1ca92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleMagnet
-  pullSpeed: 12
+  magnetRange: 5
+  pullSpeed: 83
   attachDistance: 0.01
